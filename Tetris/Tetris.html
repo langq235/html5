@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<style type="text/css">
+#canvas, #canvas2{
+    background:#ccc;
+}
+.button{
+    padding : 3px 5px;
+    background : #ccc;
+    cursor : pointer;
+}
+.control{
+    margin : 10px;
+}
+</style>
+<div id="control" class="control">
+    <span class="enable button">start</span>
+    <span class="enable button" style="display:none">restart</span>
+    <span class="enable button" style="display:none">startFromPause</span>
+    <span class="disable button" style="display:none">stop</span>
+    <span class="disable button" style="display:none">pause</span>
+    <div>&nbsp;</div>
+    <span class="button"> + </span>
+    &nbsp;
+    <span class="button"> - </span>
+    &nbsp;
+    分数：<span id="score">0</span>
+</div>
+<div style="position:absolute;left:300px;">
+<canvas id="canvas2" width="30" height="90" ></canvas>
+</div>
+<canvas id="canvas" width="400" height="600" ></canvas> 
+<script type="text/javascript" src="Tetris.js"></script>
+<script type="text/javascript">
+var control = document.getElementById("control");
+var buttons = control.getElementsByTagName("span");
+var start = buttons[0];
+var restart = buttons[1];
+var startFromPause = buttons[2];
+var stop = buttons[3];
+var pause = buttons[4];
+var speedUp = buttons[5];
+var speedDown = buttons[6];
+var score = buttons[7];
+var t = null;
+function s(){
+    t = new Tetris();
+    t.onStep = function(){
+        score.innerHTML = t.stageSet.score;
+    };
+    t.onGameover = function(){
+        hideDom(stop);
+        showDom(restart);
+        hideDom(startFromPause);
+        score.innerHTML = 0;
+    };
+}
+start.onclick = function(){
+    s();
+    t.init();
+    hideDom(start);
+    hideDom(startFromPause);
+    showDom(stop);
+    showDom(pause);
+};
+stop.onclick = function(){
+    t.stop();
+    hideDom(stop);
+    showDom(restart);
+    hideDom(startFromPause);
+};
+pause.onclick = function(){
+    t.pause();
+    hideDom(stop);
+    hideDom(pause);
+    showDom(startFromPause);
+};
+restart.onclick = function(){
+    s();
+    t.init();
+    hideDom(start);
+    hideDom(restart);
+    showDom(stop);
+    showDom(pause);
+    hideDom(startFromPause);
+};
+startFromPause.onclick = function(){
+    t.start(true);
+    hideDom(start);
+    showDom(stop);
+    showDom(pause);
+    hideDom(startFromPause);
+};
+speedUp.onclick = function(){
+    t.speedUp();
+};
+speedDown.onclick = function(){
+    t.speedDown();
+};
+function hideDom(d){
+    d.style.display = "none";
+}
+function showDom(d){
+    d.style.display = "inline";
+}
+</script>
+</body>
+</html>

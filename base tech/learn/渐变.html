@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<script type="text/javascript" src="../../jquery.js"></script>
+<canvas id="canvas" width="400" height="300"></canvas>
+<script type="text/javascript">
+    
+function draw() {  
+  var ctx = document.getElementById('canvas').getContext('2d');  
+  
+  // Create gradients  
+  var lingrad = ctx.createLinearGradient(0,0,0,150);  
+  lingrad.addColorStop(0, '#00ABEB');  
+  lingrad.addColorStop(0.5, '#fff');  
+  //lingrad.addColorStop(0.5, '#26C000');  
+  //lingrad.addColorStop(1, '#fff');  
+  
+  var lingrad2 = ctx.createLinearGradient(0,50,0,95);  
+  lingrad2.addColorStop(0.5, '#000');  
+  lingrad2.addColorStop(1, 'rgba(0,0,0,0)');  
+  
+  // assign gradients to fill and stroke styles  
+  ctx.fillStyle = lingrad;  
+  ctx.strokeStyle = lingrad2;  
+    
+  // draw shapes  
+  ///ctx.fillRect(10,10,130,130);  
+  ctx.moveTo(10,10);
+  ctx.lineTo(10,50);
+  ctx.stroke();
+  
+}
+draw();
+</script>
+</body>
+</html>
